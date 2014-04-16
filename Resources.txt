@@ -1,0 +1,4 @@
+A document to put helpful resources if they are found:
+
+
+UserLoginDialog Class Reference: http://qt-project.org/wiki/UserLoginDialogExample

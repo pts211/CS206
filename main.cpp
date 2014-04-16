@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "logindialog.h"
+
 #include <QApplication>
 
 int main(int argc, char *argv[])
