@@ -20,12 +20,24 @@ void LoginDialog::addMajor(QString major) {
     ui->comboMajor->addItem(major);
 }
 
+
+/* -------------------- SLOTS -------------------- */
+
+void LoginDialog::onShowLogin() {
+    ui->editUsername->setText("");
+    show();
+}
+
+/* -------------------- SLOTS END -------------------- */
+
+
 /* -------------------- FUNCTIONS -------------------- */
 //Validate that the username that is trying to be used exists in the file directory.
 //If the username is not valid then outline the username input and wait for user to
 //try again.
 bool LoginDialog::validateUser() {
     if(studentUserVec.contains(ui->editUsername->text())) {
+         ui->editUsername->setStyleSheet("QLineEdit {}");
         return true;
     }else{
         ui->editUsername->setStyleSheet("QLineEdit { border-style: outset; border-width: 2px; border-color: red;}");
@@ -44,8 +56,9 @@ void LoginDialog::on_btnLogin_clicked()
     if(validateUser()){
         //TODO Display might not be the best word choice. (Should emit signal to open main window with schedule stuff).
         emit DisplayStudent(ui->editUsername->text(), ui->comboMajor->currentIndex());
-        close();
+        hide();
     }
+
 }
 
 void LoginDialog::on_btnExit_clicked()

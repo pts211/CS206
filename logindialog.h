@@ -58,6 +58,7 @@ signals:
     void DisplayStudent(QString, int);
 
 public slots:
+    void onShowLogin();
 
 
 private slots:

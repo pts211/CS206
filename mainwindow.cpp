@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onShowAbout()));
+    connect(ui->actionLogout, SIGNAL(triggered()), this, SLOT(onLogout()));
+    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(onExit()));
 }
 
 /* -------------------- SLOTS -------------------- */
@@ -23,11 +25,30 @@ void MainWindow::onShowAbout() {
 //and any other cool things. Depending on how good our algorithm is a loading spinner might be
 //a good thing to have.
 void MainWindow::onDisplayStudent(QString un, int majorIndex) {
-    QString username = un;
-    int index = majorIndex;
+
+    //Set the currentMajor and currentStudent variables.
+    currentMajor = majors.at(majorIndex);
+    foreach(Student student, students) {
+        if(un != NULL && un.compare(student.getUsername()) == 0){
+            currentStudent = student;
+        }
+    }
+    //Populate the known labels in the main window.
+    ui->labelUser->setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
+    ui->labelHoursEarned->setText(QString::number(currentStudent.getHoursTaken()) + " of 128 hours earned.");
+    ui->labelDegree->setText(currentMajor.getMajor());
+    show();
 }
 
-/* -------------------- SLOTS END-------------------- */
+void MainWindow::onLogout() {
+    emit ShowLogin();
+    hide();
+}
+
+void MainWindow::onExit() {
+    QCoreApplication::quit();
+}
+/* -------------------- SLOTS END -------------------- */
 
 
 /* -------------------- GETTERS & SETTERS -------------------- */

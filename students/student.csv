@@ -1,0 +1,7 @@
+Major:,Computer Science,ID:,00000001,First:,Joe,Last:,Miner
+Department,Number,Name,Hours,Spring/Fall,Required,# Prereqs,Prereqs:
+CS,1,Introduction to Computer Science,1,FS,1,0,
+CS,53,Introcution to Programming,3,FS,1,0,
+CS,54,Introcution to Programming LAB,1,FS,1,1,CS53
+CS,153,Data Structures,3,S,1,1,CS53
+CS,128,Discrete Matematics ,3,S,1,0,

@@ -29,6 +29,8 @@ public:
     void setCourses(const QVector<Course> &value);
     void addCourse(Course value);
 
+    int getHoursTaken();
+
 private:
     int id;
     QString username;

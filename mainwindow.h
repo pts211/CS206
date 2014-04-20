@@ -34,10 +34,19 @@ private:
     QVector<Major> majors;
     QVector<Student> students;
 
+    Major currentMajor;
+    Student currentStudent;
+
 
 public slots:
     void onShowAbout();
+    void onLogout();
+    void onExit();
     void onDisplayStudent(QString, int);
+
+signals:
+    void ShowLogin();
+
 };
 
 #endif // MAINWINDOW_H

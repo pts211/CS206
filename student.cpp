@@ -64,6 +64,14 @@ void Student::addCourse(Course value)
     courses.push_back(value);
 }
 
+int Student::getHoursTaken() {
+    int i = 0;
+    foreach(Course c, courses) {
+        i += c.getHours();
+    }
+    return i;
+}
+
 
 
 

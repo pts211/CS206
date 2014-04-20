@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     LoginDialog ld;
 
     QObject::connect(&ld, SIGNAL(DisplayStudent(QString, int)), &w, SLOT(onDisplayStudent(QString,int)));
+    QObject::connect(&w, SIGNAL(ShowLogin()), &ld, SLOT(onShowLogin()));
 
     if(!QDir("majors").exists() && !QDir("students").exists()) {
         qDebug("Directory not found!");
@@ -67,7 +68,7 @@ int main(int argc, char *argv[])
     }
     ld.setStudentUserVec(studUVec);
 
-    ld.exec();
+    ld.show();
 
     //w.showLogin();
     //w.show();
