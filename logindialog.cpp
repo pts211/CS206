@@ -9,47 +9,51 @@ LoginDialog::LoginDialog(QWidget *parent) :
     setModal( true );
     setFixedSize(size());
     setWindowTitle( tr("Path-To-Success: Login") );
-//    setUpGUI();
-
-
+    ui->editUsername->setStyleSheet("QLineEdit {}");
 }
 
-
-//TODO Can modify this method to check for valid username when the username box loses focus and display neat message if
-//the user is not found.
-void LoginDialog::setUsername(QString &username){
-//    bool found = false;
-//    for( int i = 0; i < comboUsername->count() && ! found ; i++ )
-//        if( comboUsername->itemText( i ) == username  ){
-//            comboUsername->setCurrentIndex( i );
-//            found = true;
-//        }
-
-//    if( ! found ){
-//        int index = comboUsername->count();
-//        qDebug() << "Select username " << index;
-//        comboUsername->addItem( username );
-
-//        comboUsername->setCurrentIndex( index );
-//    }
-
-//    // place the focus on the password field
-//    editPassword->setFocus();
+void LoginDialog::setStudentUserVec( QVector<QString> sUVec) {
+    studentUserVec = sUVec;
 }
 
-void LoginDialog::slotAcceptLogin(){
-//    QString username = comboUsername->currentText();
-//    QString password = editPassword->text();
-//    int     index    = comboUsername->currentIndex();
-
-//    emit acceptLogin( username,  // current username
-//                      password,  // current password
-//                      index      // index in the username list
-//                      );
-
-    // close this dialog
-    close();
+void LoginDialog::addMajor(QString major) {
+    ui->comboMajor->addItem(major);
 }
+
+/* -------------------- FUNCTIONS -------------------- */
+//Validate that the username that is trying to be used exists in the file directory.
+//If the username is not valid then outline the username input and wait for user to
+//try again.
+bool LoginDialog::validateUser() {
+    if(studentUserVec.contains(ui->editUsername->text())) {
+        return true;
+    }else{
+        ui->editUsername->setStyleSheet("QLineEdit { border-style: outset; border-width: 2px; border-color: red;}");
+        ui->editUsername->setFocus();
+        return false;
+    }
+}
+/* -------------------- FUNCTIONS END -------------------- */
+
+/* -------------------- BUTTONS -------------------- */
+
+//Check to see if the username is valid, if it is emit a signal to the mainwindow to
+//start processing everything. Close the login dialog.
+void LoginDialog::on_btnLogin_clicked()
+{
+    if(validateUser()){
+        //TODO Display might not be the best word choice. (Should emit signal to open main window with schedule stuff).
+        emit DisplayStudent(ui->editUsername->text(), ui->comboMajor->currentIndex());
+        close();
+    }
+}
+
+void LoginDialog::on_btnExit_clicked()
+{
+    QCoreApplication::quit();
+}
+
+/* -------------------- BUTTONS END-------------------- */
 
 LoginDialog::~LoginDialog()
 {

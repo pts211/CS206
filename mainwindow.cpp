@@ -7,20 +7,51 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //dialog_about.about(this, "About", "TEST WINDOW");
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onShowAbout()));
-
-    loginDialog = new LoginDialog( this );
-//    loginDialog->setUsername( "Luca" );  // optional
-//    connect( loginDialog, SIGNAL(acceptLogin(QString&,QString&,int&)), this, SLOT(slotAcceptUserLogin(QString&,QString&)));
-    loginDialog->exec();
 }
 
+/* -------------------- SLOTS -------------------- */
+
+//Display an about message. Describe the app, display group members, logo?, and any other
+//helpfull information.
 void MainWindow::onShowAbout() {
     dialog_about = new QMessageBox(this);
-    dialog_about->about(this, "TEST", "TEST");
-//    dialog_about->exec();
+    dialog_about->about(this, "Path-To-Success", "This handy program will tell you how much longer you get to stay here!");
 }
+
+//TODO Call methods display the main window, figure out all of the complex stuff for scheduling,
+//and any other cool things. Depending on how good our algorithm is a loading spinner might be
+//a good thing to have.
+void MainWindow::onDisplayStudent(QString un, int majorIndex) {
+    QString username = un;
+    int index = majorIndex;
+}
+
+/* -------------------- SLOTS END-------------------- */
+
+
+/* -------------------- GETTERS & SETTERS -------------------- */
+QVector<Major> MainWindow::getMajors() const
+{
+    return majors;
+}
+
+void MainWindow::setMajors(const QVector<Major> &value)
+{
+    majors = value;
+}
+QVector<Student> MainWindow::getStudents() const
+{
+    return students;
+}
+
+void MainWindow::setStudents(const QVector<Student> &value)
+{
+    students = value;
+}
+
+/* -------------------- GETTERS & SETTERS END -------------------- */
+
 
 MainWindow::~MainWindow()
 {

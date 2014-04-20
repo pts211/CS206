@@ -29,10 +29,15 @@ public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
 
-    void setUsername( QString& username );
+    void setStudentUserVec( QVector<QString> vector );
+
+    bool validateUser();
+
+    void addMajor(QString major);
 
 private:
     Ui::LoginDialog *ui;
+    QVector<QString> studentUserVec;
 
 signals:
 
@@ -45,12 +50,19 @@ signals:
       */
     void acceptLogin( QString& username, QString& password, int& indexNumber );
 
-public slots:
     /*!
-      * A lot to adjust the emitting of the signal.
+      * A signal emitted when the login is performed.
+      * \param username the username entered in the dialog
+      * \param index the number of the major selected in the combobox
       */
-    void slotAcceptLogin();
+    void DisplayStudent(QString, int);
 
+public slots:
+
+
+private slots:
+    void on_btnLogin_clicked();
+    void on_btnExit_clicked();
 };
 
 #endif // LOGINDIALOG_H
