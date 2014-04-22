@@ -4,6 +4,8 @@
 #include "logindialog.h"
 #include "major.h"
 #include "student.h"
+#include "fingertabbarwidget.h"
+#include "fingertabwidget.h"
 
 #include <QMainWindow>
 #include <QMessageBox>

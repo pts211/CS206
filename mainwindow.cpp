@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QComboBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,17 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onShowAbout()));
     connect(ui->actionLogout, SIGNAL(triggered()), this, SLOT(onLogout()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(onExit()));
+
+    //TEST Generating GUI
+    FingerTabWidget *tabs = new FingerTabWidget();
+
+    QVector<QString> digits = {"Fall 2014", "Spring 2015", "Fall 2015", "Spring 2016", "Fall 2016"};
+    foreach(QString s, digits) {
+        tabs->addTab(new QLabel("Test"), s);
+    }
+
+    tabs->show();
+    //ui->gridLayout->addWidget(tabs);
 }
 
 /* -------------------- SLOTS -------------------- */

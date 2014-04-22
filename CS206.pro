@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QMAKE_CXXFLAGS += -std=c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,13 +18,17 @@ SOURCES += main.cpp\
     logindialog.cpp \
     major.cpp \
     course.cpp \
-    student.cpp
+    student.cpp \
+    fingertabbarwidget.cpp \
+    fingertabwidget.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
     major.h \
     course.h \
-    student.h
+    student.h \
+    fingertabbarwidget.h \
+    fingertabwidget.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui

@@ -2,6 +2,7 @@
 #define FINGERTABWIDGET_H
 
 #include <QTabWidget>
+#include "fingertabbarwidget.h"
 
 class FingerTabWidget : public QTabWidget
 {

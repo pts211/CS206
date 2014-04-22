@@ -2,3 +2,5 @@ A document to put helpful resources if they are found:
 
 
 UserLoginDialog Class Reference: http://qt-project.org/wiki/UserLoginDialogExample
+
+Finger Tabs: http://www.kidstrythisathome.com/2013/03/fingertabs-horizontal-tabs-with-horizontal-text-in-pyqt/
