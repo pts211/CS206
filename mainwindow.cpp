@@ -23,13 +23,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->maxBox->setMinimum(ui->minBox->value());
 
     //TEST Generating GUI
+
+    //TODO PAUL - make this function generate a bunch of QTableWidgets that
+    //are tables of semesters to display.
+    //Vector<QTableWidget> = generateSemesterTables();
+
     FingerTabWidget *tabs = new FingerTabWidget();
     QVector<QString> digits = {"Fall 2014", "Spring 2015", "Fall 2015", "Spring 2016", "Fall 2016"};
     int i = 0;
     foreach(QString s, digits) {
         tabs->addTab(new QLabel("Test: " + QString::number(i++)), s);
     }
-    ui->fingerTabLayout->addWidget(tabs);
+//    ui->fingerTabLayout->addWidget(tabs);
 
     testTableView();
 }
@@ -38,10 +43,16 @@ MainWindow::MainWindow(QWidget *parent) :
 //TODO PAUL - Not working quite yet. Will need to progromatically insert table anyways, should
 //just switch to that now.
 void MainWindow::testTableView() {
-    QStringList tableHeaders = {"Thing 1", "Thing 2"};
-    ui->tableWidget->setHorizontalHeaderLabels(tableHeaders);
-    ui->tableWidget->setItem(0,1, new QTableWidgetItem("Hello"));
-    ui->tableWidget->setStyleSheet("QTableView {selection-background-color: red;}");
+    QTableWidget *tempTable = new QTableWidget(5, 5);
+    QStringList tableHeaders = {"Thing 1", "Thing 2", "Thing 3", "Thing 4", "Thing 5"};
+
+    tempTable->setHorizontalHeaderLabels(tableHeaders);
+    tempTable->setItem(0,1, new QTableWidgetItem("Hello"));
+    ui->fingerTabLayout->addWidget(tempTable);
+
+//    ui->tableWidget->setHorizontalHeaderLabels(tableHeaders);
+//    ui->tableWidget->setItem(0,1, new QTableWidgetItem("Hello"));
+//    ui->tableWidget->setStyleSheet("QTableView {selection-background-color: red;}");
 }
 
 /* -------------------- SLOTS -------------------- */
