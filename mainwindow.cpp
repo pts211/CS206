@@ -1,16 +1,26 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QComboBox>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    creditMax(17),
+    creditMin(12)
 {
     ui->setupUi(this);
 
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onShowAbout()));
     connect(ui->actionLogout, SIGNAL(triggered()), this, SLOT(onLogout()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(onExit()));
+    connect(ui->maxBox, SIGNAL(valueChanged(int)), this, SLOT(onMaxChange()));
+    connect(ui->minBox, SIGNAL(valueChanged(int)), this, SLOT(onMinChange()));
+
+    ui->minBox->setValue(creditMin);
+    ui->maxBox->setValue(creditMax);
+    ui->minBox->setMaximum(ui->maxBox->value());
+    ui->maxBox->setMinimum(ui->minBox->value());
 
     //TEST Generating GUI
     FingerTabWidget *tabs = new FingerTabWidget();
@@ -62,6 +72,18 @@ void MainWindow::onDisplayStudent(QString un, int majorIndex) {
     show();
 }
 
+void MainWindow::onMaxChange()
+{
+    setCreditMax(ui->maxBox->value());
+    ui->minBox->setMaximum(ui->maxBox->value());
+}
+
+void MainWindow::onMinChange()
+{
+    setCreditMin(ui->minBox->value());
+    ui->maxBox->setMinimum(ui->minBox->value());
+}
+
 void MainWindow::onLogout() {
     emit ShowLogin();
     hide();
@@ -93,10 +115,103 @@ void MainWindow::setStudents(const QVector<Student> &value)
     students = value;
 }
 
+int MainWindow::getCreditMax() const
+{
+    return creditMax;
+}
+
+void MainWindow::setCreditMax(const int& max)
+{
+    creditMax = max;
+}
+
+int MainWindow::getCreditMin() const
+{
+    return creditMin;
+}
+
+void MainWindow::setCreditMin(const int &min)
+{
+    creditMin = min;
+}
+
 /* -------------------- GETTERS & SETTERS END -------------------- */
 
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+QVector< QVector<Course> > MainWindow::getSchedule(QString nextSem)
+{
+    QVector<Course> student = currentStudent.getCourses();
+    QVector<Course> major = currentMajor.getCourses();
+    std::cout<<"stuffffffs: "<<major.size()<<std::endl;
+    QVector<Course> taken;//list of all "taken" courses
+    for(int i = 0; i < student.size(); i++)
+    {
+        for(int j = 0; j< major.size(); j++)
+        {
+            if(student[i].getNumber() == major[i].getNumber() && student[i].getDepartment().compare(major[i].getDepartment()) == 0)
+            {
+                taken.push_back(major[j]);
+                major.remove(j);
+                j--;
+            }
+        }
+    }
+
+    //Semesters
+    QVector< QVector<Course> > semesters;
+    bool isFall = (nextSem.compare("F")==0);
+    while(major.size() > 0 )//runs until all classes are "taken")
+    {
+        int curCredits = 0;
+        QVector<Course> thisSem;
+        for(int i = 0; i < major.size(); i++)
+        {
+            if(major[i].getHours() + curCredits <= creditMax)
+            {
+                if(major[i].getSemester().contains("F") && isFall ||
+                        major[i].getSemester().contains("S") && !isFall)
+                {
+                    bool canTake = true;
+                    for(int j = 0; j < major[i].getPrerequisites().size(); j++)
+                    {
+                        bool completed = false;
+                        for(int k = 0; k < taken.size(); k++)
+                        {
+                            QString course = taken[k].getDepartment();
+                            course.append(taken[k].getNumber());
+                            if( course.compare(major[i].getPrerequisites()[j]))
+                            {
+                                completed = true;
+                            }
+                        }
+                        if(!completed)
+                        {
+                            canTake = false;
+                        }
+                    }
+                    if(canTake)
+                    {
+                        thisSem.push_back(major[i]);
+                        taken.push_back(major[i]);
+                        curCredits += major[i].getHours();
+
+                        major.remove(i);
+                        i--;
+                    }
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+        semesters.push_back(thisSem);
+        isFall = !isFall;
+    }
+    return semesters;
 }

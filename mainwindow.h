@@ -30,7 +30,12 @@ public:
     void setMajors(const QVector<Major> &value);
     QVector<Student> getStudents() const;
     void setStudents(const QVector<Student> &value);
+    int getCreditMax() const;
+    void setCreditMax(const int& max);
+    int getCreditMin() const;
+    void setCreditMin(const int& min);
 
+    QVector< QVector<Course> > getSchedule(QString nextSem);
 
 private:
     Ui::MainWindow *ui;
@@ -42,12 +47,16 @@ private:
     Major currentMajor;
     Student currentStudent;
 
+    int creditMax;
+    int creditMin;
 
 public slots:
     void onShowAbout();
     void onLogout();
     void onExit();
     void onDisplayStudent(QString, int);
+    void onMinChange();
+    void onMaxChange();
 
 signals:
     void ShowLogin();
