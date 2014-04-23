@@ -147,7 +147,6 @@ QVector< QVector<Course> > MainWindow::getSchedule(QString nextSem)
 {
     QVector<Course> student = currentStudent.getCourses();
     QVector<Course> major = currentMajor.getCourses();
-    std::cout<<"stuffffffs: "<<major.size()<<std::endl;
     QVector<Course> taken;//list of all "taken" courses
     for(int i = 0; i < student.size(); i++)
     {
