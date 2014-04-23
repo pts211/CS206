@@ -24,10 +24,13 @@ public:
 
     ~MainWindow();
 
+    void testTableView();
+
     QVector<Major> getMajors() const;
     void setMajors(const QVector<Major> &value);
     QVector<Student> getStudents() const;
     void setStudents(const QVector<Student> &value);
+
 
 private:
     Ui::MainWindow *ui;

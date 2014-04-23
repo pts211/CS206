@@ -14,14 +14,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //TEST Generating GUI
     FingerTabWidget *tabs = new FingerTabWidget();
-
     QVector<QString> digits = {"Fall 2014", "Spring 2015", "Fall 2015", "Spring 2016", "Fall 2016"};
+    int i = 0;
     foreach(QString s, digits) {
-        tabs->addTab(new QLabel("Test"), s);
+        tabs->addTab(new QLabel("Test: " + QString::number(i++)), s);
     }
+    ui->fingerTabLayout->addWidget(tabs);
 
-    tabs->show();
-    //ui->gridLayout->addWidget(tabs);
+    testTableView();
+}
+
+
+//TODO PAUL - Not working quite yet. Will need to progromatically insert table anyways, should
+//just switch to that now.
+void MainWindow::testTableView() {
+    QStringList tableHeaders = {"Thing 1", "Thing 2"};
+    ui->tableWidget->setHorizontalHeaderLabels(tableHeaders);
+    ui->tableWidget->setItem(0,1, new QTableWidgetItem("Hello"));
+    ui->tableWidget->setStyleSheet("QTableView {selection-background-color: red;}");
 }
 
 /* -------------------- SLOTS -------------------- */
