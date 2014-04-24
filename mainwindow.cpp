@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QComboBox>
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,38 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->maxBox->setValue(creditMax);
     ui->minBox->setMaximum(ui->maxBox->value());
     ui->maxBox->setMinimum(ui->minBox->value());
-
-    //TEST Generating GUI
-
-    //TODO PAUL - make this function generate a bunch of QTableWidgets that
-    //are tables of semesters to display.
-    //Vector<QTableWidget> = generateSemesterTables();
-
-    FingerTabWidget *tabs = new FingerTabWidget();
-    QVector<QString> digits = {"Fall 2014", "Spring 2015", "Fall 2015", "Spring 2016", "Fall 2016"};
-    int i = 0;
-    foreach(QString s, digits) {
-        tabs->addTab(new QLabel("Test: " + QString::number(i++)), s);
-    }
-//    ui->fingerTabLayout->addWidget(tabs);
-
-    testTableView();
-}
-
-
-//TODO PAUL - Not working quite yet. Will need to progromatically insert table anyways, should
-//just switch to that now.
-void MainWindow::testTableView() {
-    QTableWidget *tempTable = new QTableWidget(5, 5);
-    QStringList tableHeaders = {"Thing 1", "Thing 2", "Thing 3", "Thing 4", "Thing 5"};
-
-    tempTable->setHorizontalHeaderLabels(tableHeaders);
-    tempTable->setItem(0,1, new QTableWidgetItem("Hello"));
-    ui->fingerTabLayout->addWidget(tempTable);
-
-//    ui->tableWidget->setHorizontalHeaderLabels(tableHeaders);
-//    ui->tableWidget->setItem(0,1, new QTableWidgetItem("Hello"));
-//    ui->tableWidget->setStyleSheet("QTableView {selection-background-color: red;}");
 }
 
 /* -------------------- SLOTS -------------------- */
@@ -76,11 +42,81 @@ void MainWindow::onDisplayStudent(QString un, int majorIndex) {
             currentStudent = student;
         }
     }
+
+    QVector<QVector<Course>> semesters = getSchedule();
+
     //Populate the known labels in the main window.
     ui->labelUser->setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
     ui->labelHoursEarned->setText(QString::number(currentStudent.getHoursTaken()) + " of 128 hours earned.");
     ui->labelDegree->setText(currentMajor.getMajor());
+
+
+    FingerTabWidget *tabs = new FingerTabWidget();
+    QStringList tableHeaders = {"Department", "Number", "Name", "Hours"};
+
+    foreach(QVector<Course> semester, semesters) {
+        QTableWidget *tempTable = new QTableWidget(semester.size(), tableHeaders.size());
+        tempTable->setHorizontalHeaderLabels(tableHeaders);
+
+        int i = 0;
+        foreach(Course c, semester) {
+            for(int j = 0; j<tempTable->columnCount(); j++) {
+                QString itemText = c.getRowItems()[j];
+                QTableWidgetItem *temp = new QTableWidgetItem(itemText);
+                //Makes table items read only.
+                temp->setFlags(temp->flags() ^ Qt::ItemIsEditable);
+                setStupidAlignment(temp, j);
+                tempTable->setItem(i, j, temp);
+            }
+            i++;
+        }
+
+        formatTableLayout(tempTable);
+
+        tabs->addTab(tempTable, getSemesterInfo(semesters.indexOf(semester)));
+    }
+    ui->fingerTabLayout->addWidget(tabs);
+
     show();
+}
+
+//Performs all of the table formatting the semesters.
+void MainWindow::formatTableLayout(QTableWidget *table)
+{
+    table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    table->verticalHeader()->setVisible(false);
+
+    //Set the column widths to a percent.
+    //TODO PAUL - Will eventually need to call this when resizing the window so it always looks great!
+    int w = table->width();
+    table->setColumnWidth(0, w*.2);
+    table->setColumnWidth(1, w*.1);
+    table->setColumnWidth(2, w*.6);
+    table->setColumnWidth(3, w*.1);
+}
+
+//PAUL - I'm not very proud of this, but I couldn't get any other way to work... So
+//just live with it.
+void MainWindow::setStupidAlignment(QTableWidgetItem *item, int column)
+{
+    switch(column)
+    {
+        case 0:
+            item->setTextAlignment(Qt::AlignCenter);
+            break;
+        case 1:
+            item->setTextAlignment(Qt::AlignCenter);
+            break;
+        case 2:
+            item->setTextAlignment(Qt::AlignVCenter);
+            break;
+        case 3:
+            item->setTextAlignment(Qt::AlignCenter);
+            break;
+        default:
+            item->setTextAlignment(Qt::AlignLeft);
+            break;
+    }
 }
 
 void MainWindow::onMaxChange()
@@ -154,74 +190,90 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-QVector< QVector<Course> > MainWindow::getSchedule(QString nextSem)
+QVector< QVector<Course> > MainWindow::getSchedule()
 {
-    QVector<Course> student = currentStudent.getCourses();
-    QVector<Course> major = currentMajor.getCourses();
-    QVector<Course> taken;//list of all "taken" courses
-    for(int i = 0; i < student.size(); i++)
-    {
-        for(int j = 0; j< major.size(); j++)
-        {
-            if(student[i].getNumber() == major[i].getNumber() && student[i].getDepartment().compare(major[i].getDepartment()) == 0)
-            {
-                taken.push_back(major[j]);
-                major.remove(j);
-                j--;
+    QVector<Course> coursesNeeded = currentMajor.getCourses();
+    QVector<Course> coursesTaken;//list of all "taken" courses
+
+    foreach(Course sC, currentStudent.getCourses()) {
+        foreach(Course mC, currentMajor.getCourses()) {
+            if((sC.getNumber() == mC.getNumber()) && (sC.getDepartment().compare(mC.getDepartment()) == 0)){
+                coursesTaken.push_back(mC);
+                coursesNeeded.remove(coursesNeeded.indexOf(mC));
             }
         }
     }
 
+    QString nextSem = getSemesterInfo(0);
+
     //Semesters
     QVector< QVector<Course> > semesters;
-    bool isFall = (nextSem.compare("F")==0);
-    while(major.size() > 0 )//runs until all classes are "taken")
+    bool isFall = (nextSem.contains("F", Qt::CaseInsensitive));
+    while(!coursesNeeded.isEmpty())//runs until all classes are "taken")
     {
         int curCredits = 0;
         QVector<Course> thisSem;
-        for(int i = 0; i < major.size(); i++)
-        {
-            if(major[i].getHours() + curCredits <= creditMax)
-            {
-                if(major[i].getSemester().contains("F") && isFall ||
-                        major[i].getSemester().contains("S") && !isFall)
-                {
-                    bool canTake = true;
-                    for(int j = 0; j < major[i].getPrerequisites().size(); j++)
-                    {
-                        bool completed = false;
-                        for(int k = 0; k < taken.size(); k++)
-                        {
-                            QString course = taken[k].getDepartment();
-                            course.append(taken[k].getNumber());
-                            if( course.compare(major[i].getPrerequisites()[j]))
-                            {
-                                completed = true;
+
+        foreach(Course needed, coursesNeeded) {
+            //PAUL - I see this accounts for creditMax, somewhere we need to handle the minimum too.
+            //I think we might end up needing to have "filler" classes to pad the semesters if the hours are short.
+            if(needed.getHours() + curCredits <=creditMax) {
+                if((needed.getSemester().contains("F") && isFall) ||
+                   (needed.getSemester().contains("S") && !isFall)) {
+
+                    //So the student needs that class? Well, has he done all the prereqs? Lets check.
+                    bool hasCompletedPrereqs = false;
+                    foreach(QString prereq, needed.getPrerequisites()) {
+                        hasCompletedPrereqs = false;
+                        //PAUL - I don't think this is going to work for multiple prerequsites. Maybe reversing the loops and
+                        //changing the variables is an option?
+                        //PAUL - Fixed it.
+                        foreach(Course taken, coursesTaken) {
+                            QString course = taken.getDepartment() + QString::number(taken.getNumber());
+                            if(course.compare(prereq) == 0) {
+                                hasCompletedPrereqs = true;
+                                break;
                             }
                         }
-                        if(!completed)
-                        {
-                            canTake = false;
+                        if(!hasCompletedPrereqs){
+                            break;
                         }
                     }
-                    if(canTake)
-                    {
-                        thisSem.push_back(major[i]);
-                        taken.push_back(major[i]);
-                        curCredits += major[i].getHours();
-
-                        major.remove(i);
-                        i--;
+                    //You can take the class if you have completed the prerequsites!
+                    if(hasCompletedPrereqs || needed.getPrerequisites().isEmpty()) {
+                        thisSem.push_back(needed);
+                        //PAUL - This seems risky, it could schedule a course while student is taking the prereq.
+                        coursesTaken.push_back(needed);
+                        curCredits += needed.getHours();
+                        coursesNeeded.remove(coursesNeeded.indexOf(needed));
                     }
                 }
-            }
-            else
-            {
-                break;
             }
         }
         semesters.push_back(thisSem);
         isFall = !isFall;
     }
     return semesters;
+}
+
+QString MainWindow::getSemesterInfo(int semesterCount){
+    QDate date; // = QDate();
+    int year = date.currentDate().year();
+
+    bool isFall = true;
+
+    if(date.currentDate().month() > 6){
+        year++;
+        isFall = false;
+    }
+    for(int i=0; i<semesterCount; i++){
+        if(isFall){ year++; }
+        isFall = !isFall;
+    }
+
+    if(isFall){
+        return "Fall " + QString::number(year);
+    }else{
+        return "Spring " + QString::number(year);
+    }
 }

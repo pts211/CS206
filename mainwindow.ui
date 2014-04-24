@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>777</width>
-    <height>632</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,162 +17,20 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="labelUser">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>361</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>26</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Joe Miner</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>351</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>8</pointsize>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelReadOnly_ExpectedGrad">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>121</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Expected Graduation:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelExpGrad">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>60</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>May 2018</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelHoursEarned">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>60</y>
-      <width>161</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>0 of 128 Hours Earned</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelReadOnly_Degree">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Degree Program:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelDegree">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>80</y>
-      <width>231</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>degree</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>19</x>
       <y>110</y>
       <width>741</width>
-      <height>191</height>
+      <height>361</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="fingerTabLayout"/>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>320</y>
-      <width>731</width>
-      <height>251</height>
-     </rect>
-    </property>
+    <layout class="QGridLayout" name="fingerTabLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+    </layout>
    </widget>
    <widget class="QLabel" name="minLabel">
     <property name="geometry">
@@ -249,6 +107,183 @@
     <property name="maximum">
      <number>19</number>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupTitle">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>391</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string notr="true"/>
+    </property>
+    <widget class="QLabel" name="labelUser">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>361</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>26</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Joe Miner</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelDegree">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>70</y>
+       <width>231</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>degree</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelHoursEarned">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>50</y>
+       <width>161</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>0 of 128 Hours Earned</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelReadOnly_ExpectedGrad">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Expected Graduation:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelReadOnly_Degree">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Degree Program:</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>351</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelExpGrad">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>50</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>May 2018</string>
+     </property>
+    </widget>
+    <zorder>labelUser</zorder>
+    <zorder>labelDegree</zorder>
+    <zorder>labelHoursEarned</zorder>
+    <zorder>labelReadOnly_ExpectedGrad</zorder>
+    <zorder>labelReadOnly_Degree</zorder>
+    <zorder>line</zorder>
+    <zorder>labelExpGrad</zorder>
+    <zorder>labelUser</zorder>
+    <zorder>labelDegree</zorder>
+    <zorder>labelHoursEarned</zorder>
+    <zorder>labelReadOnly_ExpectedGrad</zorder>
+    <zorder>labelReadOnly_Degree</zorder>
+    <zorder>line</zorder>
+    <zorder>labelExpGrad</zorder>
+    <zorder>labelUser</zorder>
+    <zorder>labelDegree</zorder>
+    <zorder>labelHoursEarned</zorder>
+    <zorder>labelReadOnly_ExpectedGrad</zorder>
+    <zorder>labelReadOnly_Degree</zorder>
+    <zorder>line</zorder>
+    <zorder>labelExpGrad</zorder>
+    <zorder>labelUser</zorder>
+    <zorder>labelDegree</zorder>
+    <zorder>labelHoursEarned</zorder>
+    <zorder>labelReadOnly_ExpectedGrad</zorder>
+    <zorder>labelReadOnly_Degree</zorder>
+    <zorder>line</zorder>
+    <zorder>labelExpGrad</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

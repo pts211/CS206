@@ -26,6 +26,11 @@ int main(int argc, char *argv[])
     QObject::connect(&ld, SIGNAL(DisplayStudent(QString, int)), &w, SLOT(onDisplayStudent(QString,int)));
     QObject::connect(&w, SIGNAL(ShowLogin()), &ld, SLOT(onShowLogin()));
 
+    //TODO PAUL - for testing only:
+//    for(int i=0; i<10; i++){
+//        qDebug() << w.getSemesterInfo(i);
+//    }
+
     if(!QDir("majors").exists() && !QDir("students").exists()) {
         qDebug("Directory not found!");
         return 0;

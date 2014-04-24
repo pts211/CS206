@@ -3,6 +3,12 @@
 Course::Course()
 {
 }
+
+bool Course::operator==(const Course &other) const {
+    return (this->getNumber() == other.getNumber()) &&
+           (this->getDepartment().compare(other.getDepartment()) == 0);
+}
+
 QString Course::getDepartment() const
 {
     return department;
@@ -70,6 +76,17 @@ void Course::setPrerequisites(const QVector<QString> &value)
 void Course::addPrerequisite(QString value)
 {
     prerequisites.push_back(value);
+}
+
+QStringList Course::getRowItems()
+{
+    //{"Department", "Number", "Name", "Hours"};
+    return QStringList({
+                        this->department,
+                        QString::number(this->number),
+                        this->name,
+                        QString::number(this->hours)
+                       });
 }
 
 

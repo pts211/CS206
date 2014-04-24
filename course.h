@@ -7,6 +7,7 @@ class Course
 {
 public:
     Course();
+    bool operator==(const Course &other) const;
 
     QString getDepartment() const;
     void setDepartment(const QString &value);
@@ -29,6 +30,8 @@ public:
     QVector<QString> getPrerequisites() const;
     void setPrerequisites(const QVector<QString> &value);
     void addPrerequisite(QString value);
+
+    QStringList getRowItems();
 
 private:
     QString department;

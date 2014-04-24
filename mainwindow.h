@@ -9,6 +9,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QTableWidget>
 
 namespace Ui {
 class MainWindow;
@@ -21,10 +22,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
 
+    void formatTableLayout(QTableWidget *table);
+    void setStupidAlignment(QTableWidgetItem *item, int column);
+
 
     ~MainWindow();
-
-    void testTableView();
 
     QVector<Major> getMajors() const;
     void setMajors(const QVector<Major> &value);
@@ -35,7 +37,10 @@ public:
     int getCreditMin() const;
     void setCreditMin(const int& min);
 
-    QVector< QVector<Course> > getSchedule(QString nextSem);
+    QVector< QVector<Course> > getSchedule();
+
+    QString getSemesterInfo(int semesterCount);
+
 
 private:
     Ui::MainWindow *ui;
