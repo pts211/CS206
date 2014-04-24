@@ -1,5 +1,7 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
+#include<QPixmap>
+#include<QGraphicsPixmapItem>
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -10,6 +12,9 @@ LoginDialog::LoginDialog(QWidget *parent) :
     setFixedSize(size());
     setWindowTitle( tr("Path-To-Success: Login") );
     ui->editUsername->setStyleSheet("QLineEdit {}");
+
+    ui->logo->setStyleSheet("border-image: url(images/logo.png)");
+
 }
 
 void LoginDialog::setStudentUserVec( QVector<QString> sUVec) {

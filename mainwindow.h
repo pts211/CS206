@@ -22,7 +22,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
 
+    //Does all of the heavy lifting, recalculates everything and updates UI with new data.
+    //Naturally it's called everytime the user changes the max hours spinner. (Good thing computers are fast!)
+    void updateDisplay();
+
+    //Sets various table formatting stuff. Bundled in a method for quick access if needed.
     void formatTableLayout(QTableWidget *table);
+
+    //A method to set the alignment of the columns in the tables.
     void setStupidAlignment(QTableWidgetItem *item, int column);
 
 
@@ -37,8 +44,13 @@ public:
     int getCreditMin() const;
     void setCreditMin(const int& min);
 
+
     QVector< QVector<Course> > getSchedule();
 
+    //Given a semester returns a string with the seaons and year.
+    //If it is past June it assumes that this will be fore the Spring semester.
+    //ex. semester 0: Fall 2014
+    //    semester 2: Fall 2015
     QString getSemesterInfo(int semesterCount);
 
 

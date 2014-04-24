@@ -64,14 +64,25 @@ void Student::addCourse(Course value)
     courses.push_back(value);
 }
 
-int Student::getHoursTaken() {
-    int i = 0;
+int Student::getTotalHours() {
+    int total = 0;
     foreach(Course c, courses) {
-        i += c.getHours();
+        total += c.getHours();
     }
-    return i;
+    return total;
 }
 
+int Student::getHoursTowards(QVector<Course> other) {
+    int total = 0;
+    foreach(Course sC, courses) {
+        foreach(Course oC, other) {
+            if((sC.getNumber() == oC.getNumber()) && (sC.getDepartment().compare(oC.getDepartment()) == 0)){
+                total += oC.getHours();
+            }
+        }
+    }
+    return total;
+}
 
 
 

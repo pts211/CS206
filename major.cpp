@@ -28,4 +28,11 @@ void Major::addCourse(Course value)
     courses.push_back(value);
 }
 
+int Major::getTotalHours() {
+    int total = 0;
+    foreach(Course c, courses) {
+        total += c.getHours();
+    }
+    return total;
+}
 

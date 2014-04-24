@@ -16,6 +16,7 @@ public:
     QVector<Course> getCourses() const;
     void setCourses(const QVector<Course> &value);
     void addCourse(Course value);
+    int getTotalHours();
 
 private:
     QString major;

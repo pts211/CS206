@@ -29,7 +29,8 @@ public:
     void setCourses(const QVector<Course> &value);
     void addCourse(Course value);
 
-    int getHoursTaken();
+    int getTotalHours();
+    int getHoursTowards(QVector<Course> other);
 
 private:
     int id;

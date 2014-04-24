@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setFixedSize(this->geometry().width(),this->geometry().height());
+
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onShowAbout()));
     connect(ui->actionLogout, SIGNAL(triggered()), this, SLOT(onLogout()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(onExit()));
@@ -43,12 +45,32 @@ void MainWindow::onDisplayStudent(QString un, int majorIndex) {
         }
     }
 
+    updateDisplay();
+    show();
+}
+
+//Performs all of the table formatting the semesters.
+void MainWindow::updateDisplay()
+{
+    //Refresh checkboxes and buttons
+    while(ui->fingerTabLayout->count() > 0) {
+                QWidget* widget = ui->fingerTabLayout->itemAt(0)->widget();
+                ui->fingerTabLayout->removeWidget(widget);
+                delete widget;
+        }
+
     QVector<QVector<Course>> semesters = getSchedule();
 
     //Populate the known labels in the main window.
     ui->labelUser->setText(currentStudent.getFirstName() + " " + currentStudent.getLastName());
-    ui->labelHoursEarned->setText(QString::number(currentStudent.getHoursTaken()) + " of 128 hours earned.");
+    ui->labelHoursEarned->setText(
+                QString::number(currentStudent.getHoursTowards(currentMajor.getCourses())) +
+                " of " +
+                QString::number(currentMajor.getTotalHours()) +
+                " hours earned."
+                );
     ui->labelDegree->setText(currentMajor.getMajor());
+    ui->labelExpGrad->setText( getSemesterInfo(semesters.size() - 1) );
 
 
     FingerTabWidget *tabs = new FingerTabWidget();
@@ -58,6 +80,7 @@ void MainWindow::onDisplayStudent(QString un, int majorIndex) {
         QTableWidget *tempTable = new QTableWidget(semester.size(), tableHeaders.size());
         tempTable->setHorizontalHeaderLabels(tableHeaders);
 
+        int semHours = 0;
         int i = 0;
         foreach(Course c, semester) {
             for(int j = 0; j<tempTable->columnCount(); j++) {
@@ -69,15 +92,16 @@ void MainWindow::onDisplayStudent(QString un, int majorIndex) {
                 tempTable->setItem(i, j, temp);
             }
             i++;
+            semHours += c.getHours();
         }
 
         formatTableLayout(tempTable);
 
-        tabs->addTab(tempTable, getSemesterInfo(semesters.indexOf(semester)));
+        //Sets the tab name as well as displays the hours for the semester in the tab.
+        QString tabString = getSemesterInfo(semesters.indexOf(semester)) + " \t(" + QString::number(semHours) + ")";
+        tabs->addTab(tempTable, tabString);
     }
     ui->fingerTabLayout->addWidget(tabs);
-
-    show();
 }
 
 //Performs all of the table formatting the semesters.
@@ -123,6 +147,7 @@ void MainWindow::onMaxChange()
 {
     setCreditMax(ui->maxBox->value());
     ui->minBox->setMaximum(ui->maxBox->value());
+    updateDisplay();
 }
 
 void MainWindow::onMinChange()
@@ -272,7 +297,7 @@ QString MainWindow::getSemesterInfo(int semesterCount){
     }
 
     if(isFall){
-        return "Fall " + QString::number(year);
+        return "Fall " + QString::number(year) + "   \t";
     }else{
         return "Spring " + QString::number(year);
     }
