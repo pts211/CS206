@@ -268,7 +268,8 @@ QVector< QVector<Course> > MainWindow::getSchedule()
                     if(hasCompletedPrereqs || needed.getPrerequisites().isEmpty()) {
                         thisSem.push_back(needed);
                         //PAUL - This seems risky, it could schedule a course while student is taking the prereq.
-                        coursesTaken.push_back(needed);
+                        //ANDREW - Moved down to not add it to taken
+                        //coursesTaken.push_back(needed);
                         curCredits += needed.getHours();
                         coursesNeeded.remove(coursesNeeded.indexOf(needed));
                     }
@@ -276,6 +277,9 @@ QVector< QVector<Course> > MainWindow::getSchedule()
             }
         }
         semesters.push_back(thisSem);
+        foreach(Course planned, thisSem){
+            coursesTaken.push_back(planned);
+        }
         isFall = !isFall;
     }
     return semesters;
