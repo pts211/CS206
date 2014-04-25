@@ -38,28 +38,6 @@
      </property>
     </layout>
    </widget>
-   <widget class="QLabel" name="minLabel">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>80</y>
-      <width>41</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Min:</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="maxLabel">
     <property name="geometry">
      <rect>
@@ -80,22 +58,6 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="minBox">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>80</y>
-      <width>42</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="minimum">
-     <number>12</number>
-    </property>
-    <property name="maximum">
-     <number>19</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="maxBox">
@@ -262,34 +224,6 @@
       <string>May 2018</string>
      </property>
     </widget>
-    <zorder>labelUser</zorder>
-    <zorder>labelDegree</zorder>
-    <zorder>labelHoursEarned</zorder>
-    <zorder>labelReadOnly_ExpectedGrad</zorder>
-    <zorder>labelReadOnly_Degree</zorder>
-    <zorder>line</zorder>
-    <zorder>labelExpGrad</zorder>
-    <zorder>labelUser</zorder>
-    <zorder>labelDegree</zorder>
-    <zorder>labelHoursEarned</zorder>
-    <zorder>labelReadOnly_ExpectedGrad</zorder>
-    <zorder>labelReadOnly_Degree</zorder>
-    <zorder>line</zorder>
-    <zorder>labelExpGrad</zorder>
-    <zorder>labelUser</zorder>
-    <zorder>labelDegree</zorder>
-    <zorder>labelHoursEarned</zorder>
-    <zorder>labelReadOnly_ExpectedGrad</zorder>
-    <zorder>labelReadOnly_Degree</zorder>
-    <zorder>line</zorder>
-    <zorder>labelExpGrad</zorder>
-    <zorder>labelUser</zorder>
-    <zorder>labelDegree</zorder>
-    <zorder>labelHoursEarned</zorder>
-    <zorder>labelReadOnly_ExpectedGrad</zorder>
-    <zorder>labelReadOnly_Degree</zorder>
-    <zorder>line</zorder>
-    <zorder>labelExpGrad</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

@@ -41,8 +41,6 @@ public:
     void setStudents(const QVector<Student> &value);
     int getCreditMax() const;
     void setCreditMax(const int& max);
-    int getCreditMin() const;
-    void setCreditMin(const int& min);
 
 
     QVector< QVector<Course> > getSchedule();
@@ -65,14 +63,12 @@ private:
     Student currentStudent;
 
     int creditMax;
-    int creditMin;
 
 public slots:
     void onShowAbout();
     void onLogout();
     void onExit();
     void onDisplayStudent(QString, int);
-    void onMinChange();
     void onMaxChange();
 
 signals:

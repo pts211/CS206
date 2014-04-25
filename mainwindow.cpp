@@ -4,8 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    creditMax(17),
-    creditMin(12)
+    creditMax(17)
 {
     ui->setupUi(this);
 
@@ -15,12 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionLogout, SIGNAL(triggered()), this, SLOT(onLogout()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(onExit()));
     connect(ui->maxBox, SIGNAL(valueChanged(int)), this, SLOT(onMaxChange()));
-    connect(ui->minBox, SIGNAL(valueChanged(int)), this, SLOT(onMinChange()));
 
-    ui->minBox->setValue(creditMin);
     ui->maxBox->setValue(creditMax);
-    ui->minBox->setMaximum(ui->maxBox->value());
-    ui->maxBox->setMinimum(ui->minBox->value());
 }
 
 /* -------------------- SLOTS -------------------- */
@@ -36,7 +31,6 @@ void MainWindow::onShowAbout() {
 //and any other cool things. Depending on how good our algorithm is a loading spinner might be
 //a good thing to have.
 void MainWindow::onDisplayStudent(QString un, int majorIndex) {
-
     //Set the currentMajor and currentStudent variables.
     currentMajor = majors.at(majorIndex);
     foreach(Student student, students) {
@@ -149,14 +143,7 @@ void MainWindow::setStupidAlignment(QTableWidgetItem *item, int column)
 void MainWindow::onMaxChange()
 {
     setCreditMax(ui->maxBox->value());
-    ui->minBox->setMaximum(ui->maxBox->value());
     updateDisplay();
-}
-
-void MainWindow::onMinChange()
-{
-    setCreditMin(ui->minBox->value());
-    ui->maxBox->setMinimum(ui->minBox->value());
 }
 
 void MainWindow::onLogout() {
@@ -200,16 +187,6 @@ void MainWindow::setCreditMax(const int& max)
     creditMax = max;
 }
 
-int MainWindow::getCreditMin() const
-{
-    return creditMin;
-}
-
-void MainWindow::setCreditMin(const int &min)
-{
-    creditMin = min;
-}
-
 /* -------------------- GETTERS & SETTERS END -------------------- */
 
 
@@ -231,7 +208,6 @@ QVector< QVector<Course> > MainWindow::getSchedule()
             }
         }
     }
-
     QString nextSem = getSemesterInfo(0);
 
     //Semesters
@@ -245,10 +221,9 @@ QVector< QVector<Course> > MainWindow::getSchedule()
         foreach(Course needed, coursesNeeded) {
             //PAUL - I see this accounts for creditMax, somewhere we need to handle the minimum too.
             //I think we might end up needing to have "filler" classes to pad the semesters if the hours are short.
-            if(needed.getHours() + curCredits <=creditMax) {
+            if(needed.getHours() + curCredits <=creditMax || curCredits < 12) {
                 if((needed.getSemester().contains("F") && isFall) ||
                    (needed.getSemester().contains("S") && !isFall)) {
-
                     //So the student needs that class? Well, has he done all the prereqs? Lets check.
                     bool hasCompletedPrereqs = false;
                     foreach(QString prereq, needed.getPrerequisites()) {
