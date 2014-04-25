@@ -76,10 +76,12 @@ void MainWindow::updateDisplay()
     FingerTabWidget *tabs = new FingerTabWidget();
     QStringList tableHeaders = {"Department", "Number", "Name", "Hours"};
 
+    //For each semester we need to create a new tab with its own table of courses.
     foreach(QVector<Course> semester, semesters) {
         QTableWidget *tempTable = new QTableWidget(semester.size(), tableHeaders.size());
         tempTable->setHorizontalHeaderLabels(tableHeaders);
 
+        //For every course in the semester we need to insert rows into the table.
         int semHours = 0;
         int i = 0;
         foreach(Course c, semester) {
@@ -107,6 +109,7 @@ void MainWindow::updateDisplay()
 //Performs all of the table formatting the semesters.
 void MainWindow::formatTableLayout(QTableWidget *table)
 {
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     table->verticalHeader()->setVisible(false);
 

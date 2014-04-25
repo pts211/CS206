@@ -80,10 +80,20 @@ void Course::addPrerequisite(QString value)
 
 QStringList Course::getRowItems()
 {
+    //X99 is the number used for an elective >= X00 level.
+    //Below we translate that identifier to be more user friendly.
+    QString modifiedNumberStr = "";
+    if(QString::number(this->number).contains("99")){
+        QString tempStr = QString::number(this->number).replace("99", "");
+        modifiedNumberStr = "> " + tempStr + "00";
+    }else{
+        modifiedNumberStr = QString::number(this->number);
+    }
+
     //{"Department", "Number", "Name", "Hours"};
     return QStringList({
                         this->department,
-                        QString::number(this->number),
+                        modifiedNumberStr,
                         this->name,
                         QString::number(this->hours)
                        });
