@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     course.cpp \
     student.cpp \
     fingertabbarwidget.cpp \
-    fingertabwidget.cpp
+    fingertabwidget.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -28,10 +29,12 @@ HEADERS  += mainwindow.h \
     course.h \
     student.h \
     fingertabbarwidget.h \
-    fingertabwidget.h
+    fingertabwidget.h \
+    about.h
 
 FORMS    += mainwindow.ui \
-    logindialog.ui
+    logindialog.ui \
+    about.ui
 
 OTHER_FILES += \
     Resources.txt \

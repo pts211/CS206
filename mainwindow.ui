@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>777</width>
-    <height>534</height>
+    <width>819</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
      <rect>
       <x>19</x>
       <y>110</y>
-      <width>741</width>
+      <width>781</width>
       <height>371</height>
      </rect>
     </property>
@@ -41,7 +41,7 @@
    <widget class="QLabel" name="maxLabel">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>710</x>
       <y>80</y>
       <width>31</width>
       <height>20</height>
@@ -63,7 +63,7 @@
    <widget class="QSpinBox" name="maxBox">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>750</x>
       <y>80</y>
       <width>42</width>
       <height>22</height>
@@ -81,7 +81,7 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>391</width>
+      <width>471</width>
       <height>91</height>
      </rect>
     </property>
@@ -92,9 +92,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
+       <y>0</y>
        <width>361</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -111,7 +111,7 @@
     <widget class="QLabel" name="labelDegree">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>70</y>
        <width>231</width>
        <height>16</height>
@@ -130,9 +130,9 @@
     <widget class="QLabel" name="labelHoursEarned">
      <property name="geometry">
       <rect>
-       <x>210</x>
+       <x>250</x>
        <y>50</y>
-       <width>161</width>
+       <width>171</width>
        <height>16</height>
       </rect>
      </property>
@@ -151,7 +151,7 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>121</width>
+       <width>151</width>
        <height>16</height>
       </rect>
      </property>
@@ -170,7 +170,7 @@
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>101</width>
+       <width>111</width>
        <height>16</height>
       </rect>
      </property>
@@ -189,7 +189,7 @@
       <rect>
        <x>10</x>
        <y>40</y>
-       <width>351</width>
+       <width>401</width>
        <height>16</height>
       </rect>
      </property>
@@ -208,7 +208,7 @@
     <widget class="QLabel" name="labelExpGrad">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>160</x>
        <y>50</y>
        <width>101</width>
        <height>16</height>
@@ -231,8 +231,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>777</width>
-     <height>21</height>
+     <width>819</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuAbout">

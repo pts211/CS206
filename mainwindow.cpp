@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     creditMax(17)
 {
+    dialog_about = new About();
+
     ui->setupUi(this);
 
     this->setFixedSize(this->geometry().width(),this->geometry().height());
@@ -23,8 +25,13 @@ MainWindow::MainWindow(QWidget *parent) :
 //Display an about message. Describe the app, display group members, logo?, and any other
 //helpfull information.
 void MainWindow::onShowAbout() {
-    dialog_about = new QMessageBox(this);
-    dialog_about->about(this, "Path-To-Success", "This handy program will tell you how much longer you get to stay here!");
+    // set up the layout
+
+    dialog_about->setModal(true);
+    dialog_about->exec();
+
+    //dialog_about = new QMessageBox(this);
+    //dialog_about->about(this, "Path-To-Success", "This handy program will tell you how much longer you get to stay here!");
 }
 
 //TODO Call methods display the main window, figure out all of the complex stuff for scheduling,
@@ -107,12 +114,14 @@ void MainWindow::formatTableLayout(QTableWidget *table)
     table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     table->verticalHeader()->setVisible(false);
 
+    table->horizontalHeader()->setSectionResizeMode (QHeaderView::Fixed);
+
     //Set the column widths to a percent.
     //TODO PAUL - Will eventually need to call this when resizing the window so it always looks great!
     int w = table->width();
     table->setColumnWidth(0, w*.2);
     table->setColumnWidth(1, w*.1);
-    table->setColumnWidth(2, w*.6);
+    table->setColumnWidth(2, w*.625);
     table->setColumnWidth(3, w*.1);
 }
 

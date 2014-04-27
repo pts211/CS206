@@ -11,7 +11,7 @@ class FingerTabBarWidget : public QTabBar
 {
     Q_OBJECT
 public:
-    explicit FingerTabBarWidget(QWidget *parent = 0, int width = 100, int height = 25);
+    explicit FingerTabBarWidget(QWidget *parent = 0, int width = 120, int height = 25);
     void paintEvent(QPaintEvent *);
     QSize tabSizeHint(int index);
 

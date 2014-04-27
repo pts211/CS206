@@ -6,6 +6,7 @@
 #include "student.h"
 #include "fingertabbarwidget.h"
 #include "fingertabwidget.h"
+#include "about.h"
 
 #include <QMainWindow>
 #include <QMessageBox>
@@ -54,7 +55,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QMessageBox *dialog_about;
+    //QMessageBox *dialog_about;
+    About *dialog_about;
 
     QVector<Major> majors;
     QVector<Student> students;
