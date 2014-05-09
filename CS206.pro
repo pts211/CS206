@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     student.cpp \
     fingertabbarwidget.cpp \
     fingertabwidget.cpp \
-    about.cpp
+    about.cpp \
+    mainFunctions.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -30,7 +31,8 @@ HEADERS  += mainwindow.h \
     student.h \
     fingertabbarwidget.h \
     fingertabwidget.h \
-    about.h
+    about.h \
+    mainFunctions.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \

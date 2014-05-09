@@ -1,0 +1,10 @@
+Major:,Computer Science,ID:,12345678,First:,Paul,Last:,Sites
+Department,Number,Name,Hours,Spring/Fall,Required,# Prereqs,Prereqs:
+CS,1,,1,,,,
+CS,53,,3,,,,
+CS,54,,1,,,,
+ENG,20,,3,,,,
+MATH,8,,5,,,,
+CS,153,,3,,,,
+CS,128,,3,,,,
+MATH,21,,5,,,,

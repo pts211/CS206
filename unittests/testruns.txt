@@ -1,0 +1,17 @@
+Script started on Fri 09 May 2014 01:58:37 AM CDT
+]0;t-ravb13@GuardianG13: ~/CS206/unittestst-ravb13@GuardianG13:~/CS206/unittests$ exitquit./unittests 
+********* Start testing of UnitTests *********
+Config: Using QTest library 4.8.3, Qt 4.8.3
+PASS   : UnitTests::initTestCase()
+PASS   : UnitTests::TestID_1()
+PASS   : UnitTests::TestID_2()
+PASS   : UnitTests::TestID_3()
+PASS   : UnitTests::TestID_4()
+PASS   : UnitTests::TestID_5()
+PASS   : UnitTests::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped
+********* Finished testing of UnitTests *********
+]0;t-ravb13@GuardianG13: ~/CS206/unittestst-ravb13@GuardianG13:~/CS206/unittests$ exit
+exit
+
+Script done on Fri 09 May 2014 01:58:46 AM CDT
